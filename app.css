@@ -1,0 +1,72 @@
+.header{
+    font-size: xx-large;
+    text-align: center;
+    padding: 30px;
+}
+.trackList{
+    font-size: medium;
+}
+.container{
+    text-align: center;
+}
+.tracksTable{
+    min-width: 50%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+td {
+    border-bottom: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+    min-width: 50px;
+}
+tr:hover {
+    background-color: #f5f5f5;
+}
+span.stars, span.stars span {
+     display: block;
+     background: url(stars.png) 0 -16px repeat-x;
+     width: 80px;
+     height: 16px;
+ }
+
+span.stars span {
+    background-position: 0 0;
+}
+.pager{
+    font-size: large;
+}
+.btn{
+    margin-top: 20px;
+}
+.formAddTrack, .formEditTrack,
+.formAddGenre{
+    margin: 0 auto;
+    text-align: left;
+    max-width: 50%;
+}
+.editOption{
+    cursor: pointer;
+}
+.searchBox{
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+.searchIcon{
+    background: none;
+    border: none;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}

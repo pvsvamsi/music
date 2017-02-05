@@ -1,0 +1,29 @@
+<div class="defaultScreenWpr">
+    <div class="trackList" ng-show="tracks.length>0">
+        <div class="header">Music Tracks</div>
+        <div>
+            <input type="text" class="searchBox" placeholder="search title" ng-model="searchText">
+            <button class="searchIcon" ng-click="searchTitle()"><img src="./search.png" width="32px"/></button>
+        </div>
+        <table class="tracksTable">
+            <tr ng-repeat="track in tracks">
+                <td>
+                    <span>{{track.title}}</span>
+                    <span ng-show="track.genres.length>0">[ {{track.genresStr}} ]</span>
+                </td>
+                <td>
+                    <span class="stars" ng-show="showRating">{{track.rating}}</span>
+                </td>
+                <td class="columnEdit">
+                    <img class="editOption" src="./edit.png" ng-click="editTrack(track, $index)" width="32px"/>
+                </td>
+            </tr>
+        </table>
+        <button type="button" class="btn btn-default" ng-click="addNewTrack()">Add New Track</button>
+        <button type="button" class="btn btn-default" ng-click="addNewGenre()">Add Genre</button>
+        <ul class="pager">
+            <li><a href="#/" ng-click="navigateLeft()" class="leftNav">Previous</a></li>
+            <li><a href="#/" ng-click="navigateRight()" class="rightNav">Next</a></li>
+        </ul>
+    </div>
+</div>
