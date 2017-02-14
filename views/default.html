@@ -12,8 +12,11 @@
                     <span ng-show="track.genres.length>0">[ {{track.genresStr}} ]</span>
                 </td>
                 <td class="columnEdit">
-                	<div>
+                	<div ng-show="currentSong !== track">
                     	<img class="editOption" src="./play.png" ng-click="playTrack(track, index)" width="32px"/>
+                    </div>
+                	<div ng-show="currentSong === track">
+                    	<img class="editOption" src="./pause.png" ng-click="pauseTrack(track, index)" width="32px"/>
                     </div>
                 </td>
             </tr>
@@ -26,7 +29,7 @@
         </ul>
     </div>
     <div class="musicControl">
-    	<table class="tracksTable">
+    	<table class="musicControlTable">
     		<tr>
     			<td>{{currentSong.title}}
     			</td>
@@ -34,7 +37,12 @@
     		<tr>
     			<td>
     				<img class="editOption" src="./prev.png" ng-click="playPrevTrack(currentSong)" width="25px"/>
-    				<img class="editOption" src="./Play.png" ng-click="playTrack(currentSong)" width="25px"/>
+    				<div ng-show="!isPlaying">
+    					<img class="editOption" src="./Play.png" ng-click="playTrack(currentSong)" width="25px"/>
+    				</div>
+    				<div ng-show="isPlaying">
+    					<img class="editOption" src="./pause.png" ng-click="pauseTrack(currentSong)" width="25px"/>
+    				</div>
     				<img class="editOption" src="./Stop.png" ng-click="stopPlayingTrack(currentSong)" width="25px"/>
     				<img class="editOption" src="./next.png" ng-click="playNextTrack(currentSong)" width="25px"/>
     				<img class="editOption" src="./random.png" ng-click="toggleRandom()" width="25px"/>
