@@ -117,14 +117,6 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     };
 
      $scope.playNextTrack = function (track) {
-    	stopPlaying();
-        musicService.playTrack(track.id).then(function(playerObj){
-            player = playerObj;
-            $scope.currentSong = track;
-            player.play();
-        });
-
-
     	var index = $scope.currentSong.index;
     	if($scope.isRandom){    		
     		index = generateIndex(index);
@@ -141,6 +133,10 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
      $scope.stopPlayingTrack = function (track) {
     	stopPlaying();
     };
+
+    $scope.pauseTrack = function(track){
+    	pausePlaying();
+    }
 
     $scope.toggleRandom = function(){
     	$scope.isRandom = !$scope.isRandom;
