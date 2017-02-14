@@ -35,6 +35,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     $scope.searchText = "";
     $scope.currentSong = null;
     $scope.isRandom = false;
+    $scope.isPlaying = false;
     var track;
     var player = null;
     function getTrackById() {
@@ -84,17 +85,25 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     }
 
     $scope.playTrack = function (track, index) {
+    	if(player !== null && track === $scope.currentSong){
+    		player.play();
+    	}else{
+    		if(!index){
+    			index = track.index;
+    		}
     	stopPlaying();
         musicService.playTrack(track.id).then(function(playerObj){
             player = playerObj;
-            currentSong = track;
-            currentSong.index = index;
+            $scope.currentSong = track;
+            $scope.currentSong.index = index;
             player.play();
+            $scope.isPlaying = true;
         });
+    }
     };
 
      $scope.playPrevTrack = function () {
-    	var index = currentSong.index;
+    	var index = $scope.currentSong.index;
     	if($scope.isRandom){		
     		index = generateIndex(index);
     	}else{
@@ -104,19 +113,19 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     		index--;
     	}
     	var track = $scope.tracks[index]
-    	playTrack(track, index);
+    	$scope.playTrack(track, index);
     };
 
      $scope.playNextTrack = function (track) {
     	stopPlaying();
         musicService.playTrack(track.id).then(function(playerObj){
             player = playerObj;
-            currentSong = track;
+            $scope.currentSong = track;
             player.play();
         });
 
 
-    	var index = currentSong.index;
+    	var index = $scope.currentSong.index;
     	if($scope.isRandom){    		
     		index = generateIndex(index);
     	}else{
@@ -126,7 +135,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     		index++;
     	}
     	var track = $scope.tracks[index]
-    	playTrack(track, index);
+    	$scope.playTrack(track, index);
     };
 
      $scope.stopPlayingTrack = function (track) {
@@ -194,6 +203,14 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     	if(player !== null){
     		player.pause();
     		player = null;
+    		$scope.isPlaying = false;
+    	}
+    }
+
+    function pausePlaying(){
+    	if(player !== null){
+    		player.pause();
+    		$scope.isPlaying = false;
     	}
     }
 
