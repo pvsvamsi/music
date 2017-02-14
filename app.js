@@ -150,7 +150,7 @@ app.controller('mainController', function ($scope, $timeout, $location, musicSer
 
     $scope.seekTrack = function(){
     	if(player !== null){
-    		$scope.currentSong.seek(seekBarProgress*$scope.currentSong.duration/100);
+    		$scope.currentSong.seek($scope.seekBarProgress*$scope.currentSong.duration/100);
     	}
     }
 
