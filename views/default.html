@@ -46,6 +46,12 @@
     				<img class="editOption" src="./Stop.png" ng-click="stopPlayingTrack(currentSong)" width="25px"/>
     				<img class="editOption" src="./next.png" ng-click="playNextTrack(currentSong)" width="25px"/>
     				<img class="editOption" src="./random.png" ng-click="toggleRandom()" width="25px"/>
+    				<div ng-show="isRandom">
+    					<img class="editOption" src="./random.png" ng-click="toggleRandom()" width="25px"/>
+    				</div>
+    				<div ng-show="!isRandom">
+    					<img class="editOption" src="./noShuffle.png" ng-click="toggleRandom()" width="25px"/>
+    				</div>
     			</td>
     			<td>
     				<input type="range" class="seekBar" value="0">
