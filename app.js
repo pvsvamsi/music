@@ -43,8 +43,8 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     $scope.navigateRight = function(isFirstCall){
         if($scope.currentPageNo < $scope.lastPageNo) {
             $scope.tracks = [];
-            musicService.getTracks($scope.currentPageNo + 1).then(function(){
-
+            musicService.getTracks($scope.currentPageNo + 1).then(function(tracks){
+            	$scope.tracks = tracks.collection;
             });
             
         }
