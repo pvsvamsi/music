@@ -192,7 +192,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     }
 
     function generateRandomIndex(){
-    	return Math.random() * (19 - 0);    	
+    	return parseInt(Math.random() * (19 - 0));    	
     }
 
     function stopPlaying(){
