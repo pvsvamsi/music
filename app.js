@@ -107,7 +107,7 @@ app.controller('mainController', function ($scope, $timeout, $location, musicSer
 
     function startSeekBar(){
     	seekBarInterval = setInterval(function(){
-    		$scope.seekBarProgress = player.currentTime()/$scope.currentSong.duration;
+    		$scope.seekBarProgress = parseInt(player.currentTime()/$scope.currentSong.duration*100);
     	},50);
     }
 
