@@ -70,3 +70,9 @@ textarea:focus,
 button:focus {
     outline: none;
 }
+.musicControl{
+	position: fixed;
+	bottom: 0px;
+	padding: 10px;
+	background: #ffff;
+}

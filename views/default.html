@@ -12,7 +12,9 @@
                     <span ng-show="track.genres.length>0">[ {{track.genresStr}} ]</span>
                 </td>
                 <td class="columnEdit">
-                    <img class="editOption" src="./play.png" ng-click="playTrack(track)" width="32px"/>
+                	<div>
+                    	<img class="editOption" src="./play.png" ng-click="playTrack(track)" width="32px"/>
+                    </div>
                 </td>
             </tr>
         </table>
@@ -24,8 +26,10 @@
         </ul>
     </div>
     <div class="musicControl">
-    	<table>
-    		<tr>{{currentSong.title}}</tr>
+    	<table class="tracksTable">
+    		<tr>
+    			<span>{{currentSong.title}}</span>
+    		</tr>
     		<tr></tr>
     	</table>
     </div>
