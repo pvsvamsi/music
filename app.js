@@ -139,8 +139,8 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     }
 
     function setCurrentSong(){    	
-        if(currentSong === null){
-        	currentSong = $scope.tracks[0];
+        if($scope.currentSong === null){
+        	$scope.currentSong = $scope.tracks[0];
         }
     }
 
