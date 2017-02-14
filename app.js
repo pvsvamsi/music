@@ -236,7 +236,7 @@ app.service('musicService', function ($q) {
 			console.log(tracks);
   			// page through results, 100 at a time
 		});
-		return defer.promise();
+		return defer.promise;
 	}
 
 
