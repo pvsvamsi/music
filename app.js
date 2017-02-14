@@ -66,7 +66,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     $scope.searchTitle = function () {
         if($scope.searchText !== "") {
             musicService.searchTracks($scope.searchText).then(function(tracks){
-            	$scope.tracks = tracks.collection;
+            	$scope.tracks = tracks;
             });
         }else{
         	clearSearch();
@@ -247,7 +247,7 @@ app.service('musicService', function ($q) {
 	this.getTracks = function(pageNum){
 		var defer = $q.defer();
 
-		SC.get('/tracks', { limit: page_size, linked_partitioning: pageNum}).then(function(tracks) {
+		SC.get('/tracks', { limit: page_size, linked_partitioning: 1, offset: (pageNum-1)*page_size}).then(function(tracks) {
 			defer.resolve(tracks);
 			console.log(tracks);
   			// page through results, 100 at a time
