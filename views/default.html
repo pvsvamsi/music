@@ -13,7 +13,7 @@
                 </td>
                 <td class="columnEdit">
                 	<div>
-                    	<img class="editOption" src="./play.png" ng-click="playTrack(track)" width="32px"/>
+                    	<img class="editOption" src="./play.png" ng-click="playTrack(track, index)" width="32px"/>
                     </div>
                 </td>
             </tr>
@@ -28,9 +28,21 @@
     <div class="musicControl">
     	<table class="tracksTable">
     		<tr>
-    			<span>{{currentSong.title}}</span>
+    			<td>{{currentSong.title}}
+    			</td>
     		</tr>
-    		<tr></tr>
+    		<tr>
+    			<td>
+    				<img class="editOption" src="./prev.png" ng-click="playPrevTrack(currentSong)" width="25px"/>
+    				<img class="editOption" src="./Play.png" ng-click="playTrack(currentSong)" width="25px"/>
+    				<img class="editOption" src="./Stop.png" ng-click="stopPlayingTrack(currentSong)" width="25px"/>
+    				<img class="editOption" src="./next.png" ng-click="playNextTrack(currentSong)" width="25px"/>
+    				<img class="editOption" src="./random.png" ng-click="toggleRandom()" width="25px"/>
+    			</td>
+    			<td>
+    				<input type="range" class="seekBar" value="0">
+    			</td>
+    		</tr>
     	</table>
     </div>
 </div>
