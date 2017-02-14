@@ -45,6 +45,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
             $scope.tracks = [];
             musicService.getTracks($scope.currentPageNo + 1).then(function(tracks){
             	$scope.tracks = tracks.collection;
+                $scope.currentPageNo++;
             });
             
         }
