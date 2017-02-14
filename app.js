@@ -58,24 +58,33 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     $scope.navigateLeft = function () {
         if($scope.currentPageNo>1) {
             $scope.tracks = [];
-            track = TracksByPage.get({pageNum: ($scope.currentPageNo - 1)}, function () {
-                parseTracks(track.results);
+            musicService.getTracks($scope.currentPageNo - 1).then(function(tracks){
+            	$scope.tracks = tracks.collection;
                 $scope.currentPageNo--;
-            })
+            });
         }
     };
 
     $scope.searchTitle = function () {
         if($scope.searchText !== "") {
-            track = TrackByTitle.get({title: $scope.searchText}, function () {
-                parseTracks(track.results);
-                console.log(track);
-                $scope.lastPageNo = Math.ceil(track.count/$scope.tracks.length);
-            })
+            musicService.searchTracks($scope.searchText).then(function(tracks){
+            	$scope.tracks = tracks.collection;
+            });
         }else{
-            $scope.currentPageNo--;
-            $scope.navigateRight(true);
+        	clearSearch();
         }
+    };
+
+    $scope.clearSearch = function(){
+    	$scope.currentPageNo = 0;
+        $scope.navigateRight(true);
+    }
+
+    $scope.playTrack = function (trackId) {
+        musicService.playTrack(trackId).then(function(){
+            	//set the play pause buttons
+            	alert("playing the track");
+        });
     };
 
     $scope.addNewTrack = function () {
@@ -236,6 +245,24 @@ app.service('musicService', function ($q) {
 			defer.resolve(tracks);
 			console.log(tracks);
   			// page through results, 100 at a time
+		});
+		return defer.promise;
+	}
+
+	this.searchTracks = function(trackName){
+		var defer = $q.defer();
+		SC.get('/tracks', { q: trackName, license: 'cc-by-sa'}).then(function(tracks) {
+			defer.resolve(tracks);
+  			console.log(tracks);
+		});
+		return defer.promise;
+	}
+
+	this.playTrack = function(trackId){
+		var defer = $q.defer();
+		SC.stream('/tracks/'+trackId).then(function(player){
+  			player.play();
+			defer.resolve(player);
 		});
 		return defer.promise;
 	}
