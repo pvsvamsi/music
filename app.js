@@ -40,15 +40,12 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
         });
     }
 
-    $scope.navigateRight = function(isFirstCall){
-        if($scope.currentPageNo) {
+    $scope.navigateRight = function(isFirstCall){        
             $scope.tracks = [];
             musicService.getTracks($scope.currentPageNo + 1).then(function(tracks){
             	$scope.tracks = tracks.collection;
                 $scope.currentPageNo++;
             });
-            
-        }
     };
     if($scope.tracks.length === 0) {
         $scope.navigateRight(true);
