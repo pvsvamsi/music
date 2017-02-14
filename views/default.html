@@ -1,5 +1,5 @@
-<div class="defaultScreenWpr">
-    <div class="trackList" ng-show="tracks.length>0">
+<div class="defaultScreenWpr" ng-show="tracks.length>0">
+    <div class="trackList">
         <div class="header">Music Tracks</div>
         <div>
             <input type="text" class="searchBox" placeholder="search title" ng-model="searchText">
@@ -12,7 +12,7 @@
                     <span ng-show="track.genres.length>0">[ {{track.genresStr}} ]</span>
                 </td>
                 <td class="columnEdit">
-                    <img class="editOption" src="./edit.png" ng-click="playTrack(track.id)" width="32px"/>
+                    <img class="editOption" src="./play.png" ng-click="playTrack(track)" width="32px"/>
                 </td>
             </tr>
         </table>
@@ -22,5 +22,11 @@
             <li><a href="#/" ng-click="navigateLeft()" class="leftNav">Previous</a></li>
             <li><a href="#/" ng-click="navigateRight()" class="rightNav">Next</a></li>
         </ul>
+    </div>
+    <div class="musicControl">
+    	<table>
+    		<tr>{{currentSong.title}}</tr>
+    		<tr></tr>
+    	</table>
     </div>
 </div>

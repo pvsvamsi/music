@@ -33,6 +33,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     $scope.currentPageNo = musicService.currentPageNo;
     $scope.lastPageNo = musicService.lastPageNo;
     $scope.searchText = "";
+    $scope.currentSong = null;
     var track;
     var player = null;
     function getTrackById() {
@@ -45,6 +46,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
             $scope.tracks = [];
             musicService.getTracks($scope.currentPageNo + 1).then(function(tracks){
             	$scope.tracks = tracks.collection;
+            	setCurrentSong();
                 $scope.currentPageNo++;
             });
     };
@@ -58,6 +60,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
             $scope.tracks = [];
             musicService.getTracks($scope.currentPageNo - 1).then(function(tracks){
             	$scope.tracks = tracks.collection;
+            	setCurrentSong();
                 $scope.currentPageNo--;
             });
         }
@@ -67,6 +70,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
         if($scope.searchText !== "") {
             musicService.searchTracks($scope.searchText).then(function(tracks){
             	$scope.tracks = tracks;
+            	setCurrentSong();
             });
         }else{
         	clearSearch();
@@ -78,10 +82,11 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
         $scope.navigateRight(true);
     }
 
-    $scope.playTrack = function (trackId) {
+    $scope.playTrack = function (track) {
     	stopPlaying();
-        musicService.playTrack(trackId).then(function(playerObj){
+        musicService.playTrack(track.id).then(function(playerObj){
             player = playerObj;
+            currentSong = track;
             player.play();
         });
     };
@@ -131,6 +136,12 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     		player.pause();
     		player = null;
     	}
+    }
+
+    function setCurrentSong(){    	
+        if(currentSong === null){
+        	currentSong = $scope.tracks[0];
+        }
     }
 
     $.fn.stars = function() {
