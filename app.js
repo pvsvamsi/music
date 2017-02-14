@@ -34,6 +34,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     $scope.lastPageNo = musicService.lastPageNo;
     $scope.searchText = "";
     var track;
+    var player = null;
     function getTrackById() {
         track = Track.get({id: getById}, function () {
             console.log(track);
@@ -78,9 +79,10 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     }
 
     $scope.playTrack = function (trackId) {
-        musicService.playTrack(trackId).then(function(){
-            	//set the play pause buttons
-            	alert("playing the track");
+    	stopPlaying();
+        musicService.playTrack(trackId).then(function(playerObj){
+            player = playerObj;
+            player.play();
         });
     };
 
@@ -122,6 +124,13 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
             $('span.stars').stars();
             $scope.showRating = true;
         },0);
+    }
+
+    function stopPlaying(){
+    	if(player !== null){
+    		player.pause();
+    		player = null;
+    	}
     }
 
     $.fn.stars = function() {
@@ -258,7 +267,6 @@ app.service('musicService', function ($q) {
 	this.playTrack = function(trackId){
 		var defer = $q.defer();
 		SC.stream('/tracks/'+trackId).then(function(player){
-  			player.play();
 			defer.resolve(player);
 		});
 		return defer.promise;
