@@ -5,6 +5,7 @@
 }
 .trackList{
     font-size: medium;
+    margin-bottom: 120px;
 }
 .container{
     text-align: center;
@@ -75,9 +76,10 @@ button:focus {
 	bottom: 0px;
 	padding: 10px;
 	min-width: 50%;
+	min-height: 100px;
 	left: 20%;
 	right: 20%;
-	background: rgba(139, 183, 4, 0.65);
+	background: rgb(142, 183, 14);
 }
 .musicControlTable{
     min-width: 50%;
@@ -86,4 +88,7 @@ button:focus {
 }
 .musicControlTable td{
 	display: -webkit-inline-box;
+}
+img{
+	margin: 5px;
 }
