@@ -200,7 +200,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     function setCurrentSong(){    	
         if($scope.currentSong === null){
         	$scope.currentSong = $scope.tracks[0];
-            currentSong.index = 0;
+            $scope.currentSong.index = 0;
         }
     }
 
