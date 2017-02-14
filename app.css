@@ -75,6 +75,7 @@ button:focus {
 	bottom: 0px;
 	padding: 10px;
 	min-width: 50%;
-	left: 25%;
+	left: 20%;
+	right: 20%;
 	background: rgba(139, 183, 4, 0.65);
 }
