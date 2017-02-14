@@ -201,7 +201,7 @@ app.controller('editGenreController', function ($scope, Genres, $location) {
     }
 });
 
-app.service('musicService', function () {
+app.service('musicService', function ($q) {
     this.editTrackObj = {"id": 1,
                 "title": "",
                 "rating": 0.0,
@@ -229,11 +229,14 @@ app.service('musicService', function () {
 	var page_size = 20;
 
 	this.getTracks = function(pageNum){
+		var defer = $q.defer();
 
 		SC.get('/tracks', { limit: page_size, linked_partitioning: pageNum}).then(function(tracks) {
+			defer.resolve(tracks);
 			console.log(tracks);
   			// page through results, 100 at a time
 		});
+		return defer.promise();
 	}
 
 
