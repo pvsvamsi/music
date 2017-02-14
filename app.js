@@ -34,6 +34,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     $scope.lastPageNo = musicService.lastPageNo;
     $scope.searchText = "";
     $scope.currentSong = null;
+    $scope.isRandom = false;
     var track;
     var player = null;
     function getTrackById() {
@@ -82,14 +83,59 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
         $scope.navigateRight(true);
     }
 
-    $scope.playTrack = function (track) {
+    $scope.playTrack = function (track, index) {
+    	stopPlaying();
+        musicService.playTrack(track.id).then(function(playerObj){
+            player = playerObj;
+            currentSong = track;
+            currentSong.index = index;
+            player.play();
+        });
+    };
+
+     $scope.playPrevTrack = function () {
+    	var index = currentSong.index;
+    	if($scope.isRandom){		
+    		index = generateIndex(index);
+    	}else{
+    		if(index <= 0){
+    			return null;
+    		}
+    		index--;
+    	}
+    	var track = $scope.tracks[index]
+    	playTrack(track, index);
+    };
+
+     $scope.playNextTrack = function (track) {
     	stopPlaying();
         musicService.playTrack(track.id).then(function(playerObj){
             player = playerObj;
             currentSong = track;
             player.play();
         });
+
+
+    	var index = currentSong.index;
+    	if($scope.isRandom){    		
+    		index = generateIndex(index);
+    	}else{
+    		if(index >= 19){
+    			return null;
+    		}
+    		index++;
+    	}
+    	var track = $scope.tracks[index]
+    	playTrack(track, index);
     };
+
+     $scope.stopPlayingTrack = function (track) {
+    	stopPlaying();
+    };
+
+    $scope.toggleRandom = function(){
+    	$scope.isRandom = !$scope.isRandom;
+    }
 
     $scope.addNewTrack = function () {
         updateServiceVariables();
@@ -131,6 +177,19 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
         },0);
     }
 
+
+    function generateIndex(index){    	
+    	var tempIndex = generateRandomIndex();
+    	while(index === tempIndex){
+    		tempIndex = generateRandomIndex();
+    	}
+    	return tempIndex;
+    }
+
+    function generateRandomIndex(){
+    	return Math.random() * (19 - 0);    	
+    }
+
     function stopPlaying(){
     	if(player !== null){
     		player.pause();
@@ -141,6 +200,7 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     function setCurrentSong(){    	
         if($scope.currentSong === null){
         	$scope.currentSong = $scope.tracks[0];
+            currentSong.index = 0;
         }
     }
 
