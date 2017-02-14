@@ -27,7 +27,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         });
 }]);
 
-app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout, TracksByPage, $location, musicService) {
+app.controller('mainController', function ($scope, $timeout, $location, musicService) {
     var getById = null;
     $scope.tracks = musicService.tracksArr;
     $scope.currentPageNo = musicService.currentPageNo;
@@ -36,6 +36,8 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     $scope.currentSong = null;
     $scope.isRandom = false;
     $scope.isPlaying = false;
+    $scope.seekBarProgress = 0;
+    var seekBarInterval = null;
     var track;
     var player = null;
     function getTrackById() {
@@ -98,9 +100,16 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
             $scope.currentSong.index = index;
             player.play();
             $scope.isPlaying = true;
+            startSeekBar();
         });
     }
     };
+
+    function startSeekBar(){
+    	seekBarInterval = setInterval(function(){
+    		$scope.seekBarProgress = player.currentTime()/$scope.currentSong.duration;
+    	},50);
+    }
 
      $scope.playPrevTrack = function () {
     	var index = $scope.currentSong.index;
@@ -196,6 +205,8 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     }
 
     function stopPlaying(){
+    	clearInterval(seekBarInterval);
+    	seekBarInterval = null
     	if(player !== null){
     		player.pause();
     		player = null;
