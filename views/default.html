@@ -11,11 +11,8 @@
                     <span>{{track.title}}</span>
                     <span ng-show="track.genres.length>0">[ {{track.genresStr}} ]</span>
                 </td>
-                <td>
-                    <span class="stars" ng-show="showRating">{{track.rating}}</span>
-                </td>
                 <td class="columnEdit">
-                    <img class="editOption" src="./edit.png" ng-click="editTrack(track, $index)" width="32px"/>
+                    <img class="editOption" src="./edit.png" ng-click="playTrack(track.id)" width="32px"/>
                 </td>
             </tr>
         </table>
