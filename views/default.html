@@ -12,10 +12,10 @@
                     <span ng-show="track.genres.length>0">[ {{track.genresStr}} ]</span>
                 </td>
                 <td class="columnEdit">
-                	<div ng-show="currentSong !== track && isPlaying">
+                	<div ng-show="currentSong !== track || !isPlaying">
                     	<img class="editOption" src="./play.png" ng-click="playTrack(track, index)" width="32px"/>
                     </div>
-                	<div ng-show="currentSong === track">
+                	<div ng-show="currentSong === track && isPlaying">
                     	<img class="editOption" src="./Pause.png" ng-click="pauseTrack(track, index)" width="32px"/>
                     </div>
                 </td>
