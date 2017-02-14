@@ -6,19 +6,19 @@ app.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'views/default.html',
             controller: 'mainController'
         })
-        .when('/editTrack', {
+        .when('/edittrack', {
             templateUrl: 'views/editTrack.html',
             controller: 'editTrackController'
         })
-        .when('/addTrack', {
+        .when('/addtrack', {
             templateUrl: 'views/addTrack.html',
             controller: 'addTrackController'
         })
-        .when('/addGenre', {
+        .when('/addgenre', {
             templateUrl: 'views/addGenre.html',
             controller: 'addGenreController'
         })
-        .when('/editGenre', {
+        .when('/editgenre', {
             templateUrl: 'views/ediGenre.html',
             controller: 'editGenreController'
         })
@@ -43,14 +43,10 @@ app.controller('mainController', function ($scope, Track, TrackByTitle, $timeout
     $scope.navigateRight = function(isFirstCall){
         if($scope.currentPageNo < $scope.lastPageNo) {
             $scope.tracks = [];
-            track = TracksByPage.get({pageNum: ($scope.currentPageNo + 1)}, function () {
-                console.log(track);
-                parseTracks(track.results);
-                $scope.currentPageNo++;
-                if(isFirstCall){
-                    $scope.lastPageNo = Math.ceil(track.count/$scope.tracks.length);
-                }
-            })
+            musicService.getTracks($scope.currentPageNo + 1).then(function(){
+
+            });
+            
         }
     };
     if($scope.tracks.length === 0) {
@@ -224,6 +220,24 @@ app.service('musicService', function () {
         }
         return genresStr.slice(0, -3);
     }
+
+
+    SC.initialize({
+  		client_id: '708abc176b8af0125b78392b9f132b4d'
+	});
+
+	var page_size = 20;
+
+	this.getTracks = function(pageNum){
+
+		SC.get('/tracks', { limit: page_size, linked_partitioning: pageNum}).then(function(tracks) {
+			console.log(tracks);
+  			// page through results, 100 at a time
+		});
+	}
+
+
+
 });
 
 app.factory('Track', function($resource) {
